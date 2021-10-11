@@ -17,7 +17,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
+      <Text>Hello2</Text>
       <StatusBar style="auto" />
     </View>
   );
