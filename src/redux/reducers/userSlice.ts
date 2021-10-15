@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { chuckApi } from "../api/chuckApi";
 import { RootState } from "../store";
 
-export const fetchChuckNorris = createAsyncThunk(
-  "get/fetchChuckNorris",
+export const userLogin = createAsyncThunk(
+  "user/login",
   async (arg: any, { getState, dispatch }) => {
     console.log("sup dude");
     const state = getState();
@@ -20,6 +20,8 @@ export interface routeState {
   isLoading: boolean;
   data: any;
   error: any;
+  email: string;
+  username: string;
 }
 
 const initialState: routeState = {
@@ -27,23 +29,25 @@ const initialState: routeState = {
   isLoading: false,
   data: null,
   error: null,
+  email: "",
+  username: "",
 };
 
-export const routeSlice = createSlice({
-  name: "route",
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChuckNorris.pending, (state) => {
+      .addCase(userLogin.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchChuckNorris.fulfilled, (state, action) => {
+      .addCase(userLogin.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload;
       })
-      .addCase(fetchChuckNorris.rejected, (state, action) => {
+      .addCase(userLogin.rejected, (state, action) => {
         state.isLoading = false;
         state.data = [];
         state.error = action.payload;
@@ -52,9 +56,10 @@ export const routeSlice = createSlice({
 });
 
 export const routeData = (state: RootState) => ({
-  isLoading: state.route.isLoading,
-  data: state.route.data,
-  error: state.route.error,
+  isLoading: state.user.isLoading,
+  data: state.user.data,
+  error: state.user.error,
+  email: state.user.email,
 });
 
-export default routeSlice.reducer;
+export default userSlice.reducer;

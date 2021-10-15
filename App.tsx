@@ -1,25 +1,20 @@
-import { StatusBar } from "expo-status-bar";
+//import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-//import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
-import Index from "./src/Index";
+import Route from "./src/containers/Route";
+
+let persistor = persistStore(store);
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Index />
+      <PersistGate loading={null} persistor={persistor}>
+        <Route />
+      </PersistGate>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
