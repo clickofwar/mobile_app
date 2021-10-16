@@ -1,16 +1,17 @@
 import React from "react";
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import { View, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
 import Button from "./Button";
 import Input from "./Input";
 import { AlignView } from "./Views";
+import { emailPassword } from "../../helpers/formValidation";
 
-const Form = (props: any) => {
-  const { callback, validate = {} } = props;
+const LoginForm = (props: any) => {
+  const { callback } = props;
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      validate={validate}
+      validate={emailPassword}
       onSubmit={(values) => callback(values)}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
@@ -45,14 +46,4 @@ const Form = (props: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#e6e6e6",
-    width: 350,
-    height: 50,
-  },
-});
-
-export default Form;
+export default LoginForm;

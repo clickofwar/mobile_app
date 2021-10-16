@@ -1,27 +1,39 @@
 import React, { useEffect } from "react";
-import { View, Text, Button } from "react-native";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { fetchChuckNorris, routeData } from "../redux/reducers/routeSlice";
+import {
+  userLoginData,
+  userData,
+  userLogin,
+} from "../redux/reducers/userSlice";
 import LoginScreen from "../components/login/LoginScreen";
+import Loading from "../components/common/Loading";
 
-export default function LoginContainer() {
+export default function LoginContainer(props: any) {
+  const { navigation } = props;
   const dispatch = useAppDispatch();
-  const data = useAppSelector(routeData);
+  const _userData = useAppSelector(userData);
+  const _userLoginData = useAppSelector(userLoginData);
 
-  // const stringy = "rege";
+  const { token } = _userData;
+  const { isLoading } = _userLoginData;
 
-  // useEffect(() => {
-  //   console.log({ data });
-  // }, [data]);
+  console.log(_userData, _userLoginData);
 
-  // useEffect(() => {
-  //   const data = "string";
-  //   dispatch(fetchChuckNorris({ data }));
-  // }, []);
+  useEffect(() => {
+    if (token) {
+      navigation.navigate("Home");
+    }
+  }, [token]);
 
-  if (data.isLoading) {
-    return <Text>Loading...</Text>;
+  if (isLoading) {
+    <Loading />;
   }
 
-  return <LoginScreen callback={(e: any) => console.log(e)} />;
+  return (
+    <LoginScreen
+      callback={(e: any) => dispatch(userLogin(e))}
+      userLoginData={_userLoginData}
+      {...props}
+    />
+  );
 }

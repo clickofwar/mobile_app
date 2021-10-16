@@ -1,15 +1,37 @@
 import React from "react";
-import { Button, Text } from "react-native";
-import { CenterView } from "../common/Views";
-import Form from "../common/Form";
+import { Text, KeyboardAvoidingView, Platform } from "react-native";
+import SignupForm from "../common/SignupForm";
+import Button from "../common/Button";
 
 export default function SignupScreen(props: any) {
-  const { callback } = props;
+  const { callback, navigation, userSignupData } = props;
   return (
-    <CenterView>
-      <Text>Signup Screen</Text>
-      <Form callback={callback} />
-      <Button title="Sign-up" onPress={() => console.log("hello")} />
-    </CenterView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+    >
+      <Text
+        style={{
+          fontSize: 16,
+          lineHeight: 21,
+          fontWeight: "bold",
+          letterSpacing: 0.25,
+        }}
+      >
+        Signup Screen
+      </Text>
+      {userSignupData.error && (
+        <Text style={{ marginTop: 10 }}>
+          Something went wrong, please try again
+        </Text>
+      )}
+      <SignupForm callback={callback} />
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate("Login")}
+        buttonStyle={{ marginTop: 25 }}
+        isSecondary={true}
+      />
+    </KeyboardAvoidingView>
   );
 }

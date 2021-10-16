@@ -1,18 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, Text } from "react-native";
 
 export default function Button(props: any) {
   const { title, onPress, isSecondary, isText, buttonStyle, textStyle } = props;
+  const [isPressed, setIsPressed] = useState(false);
 
-  let buttonStyles = isSecondary
-    ? secondaryStyles.button
-    : primaryStyles.button;
+  let buttonPressedStyles = {};
+  let textPressedStyles = {};
 
-  let textStyles = isSecondary ? secondaryStyles.text : primaryStyles.text;
+  if (isSecondary) {
+    buttonPressedStyles = isPressed ? { backgroundColor: "#e3e3e3" } : {};
+
+    return (
+      <Pressable
+        style={{
+          ...secondaryStyles.button,
+          ...buttonStyle,
+          ...buttonPressedStyles,
+        }}
+        onPress={onPress}
+        onPressIn={() => setIsPressed(true)}
+        onPressOut={() => setIsPressed(false)}
+      >
+        <Text
+          style={{
+            ...secondaryStyles.text,
+            ...textStyle,
+            ...textPressedStyles,
+          }}
+        >
+          {title}
+        </Text>
+      </Pressable>
+    );
+  }
+
+  buttonPressedStyles = isPressed
+    ? { borderColor: "black", borderWidth: 1, backgroundColor: "white" }
+    : {};
+
+  textPressedStyles = isPressed ? { color: "black" } : {};
 
   return (
-    <Pressable style={{ ...buttonStyles, ...buttonStyle }} onPress={onPress}>
-      <Text style={{ ...textStyles, ...textStyle }}>{title}</Text>
+    <Pressable
+      style={{
+        ...primaryStyles.button,
+        ...buttonStyle,
+        ...buttonPressedStyles,
+      }}
+      onPress={onPress}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+    >
+      <Text
+        style={{ ...primaryStyles.text, ...textStyle, ...textPressedStyles }}
+      >
+        {title}
+      </Text>
     </Pressable>
   );
 }
@@ -26,6 +70,8 @@ const primaryStyles = {
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "black",
+    borderWidth: 1,
+    borderColor: "transparent",
   },
   text: {
     fontSize: 16,
@@ -43,6 +89,8 @@ const secondaryStyles = {
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
+    borderColor: "black",
+    borderWidth: 1,
   },
   text: {
     fontSize: 16,

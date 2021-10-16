@@ -1,14 +1,16 @@
 import React from "react";
-import { Text } from "react-native";
-import { CenterView } from "../common/Views";
-import Form from "../common/Form";
+import { Text, KeyboardAvoidingView, Platform } from "react-native";
+import LoginForm from "../common/LoginForm";
 import Button from "../common/Button";
-import { emailPassword } from "../../helpers/formValidation";
 
 export default function LoginScreen(props: any) {
-  const { callback } = props;
+  const { callback, navigation, userLoginData } = props;
+
   return (
-    <CenterView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+    >
       <Text
         style={{
           fontSize: 16,
@@ -19,13 +21,16 @@ export default function LoginScreen(props: any) {
       >
         Login Screen
       </Text>
-      <Form callback={callback} validate={emailPassword} />
+      {userLoginData.error && (
+        <Text style={{ marginTop: 10 }}>Wrong Email or Password</Text>
+      )}
+      <LoginForm callback={callback} />
       <Button
         title="Sign-up"
-        onPress={() => console.log("hello")}
+        onPress={() => navigation.navigate("Signup")}
         buttonStyle={{ marginTop: 25 }}
         isSecondary={true}
       />
-    </CenterView>
+    </KeyboardAvoidingView>
   );
 }

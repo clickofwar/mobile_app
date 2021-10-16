@@ -1,17 +1,19 @@
 import axios from "axios";
+import { Platform } from "react-native";
+import { PROD_URL, LOCAL_URL } from "@env";
 
-let url = "http://localhost:3000/api/v1/";
+let url = PROD_URL;
+if (Platform.OS === "web") {
+  url = LOCAL_URL;
+}
 
 export const request = (props: any) => {
-  const { endPoint, state, arg } = props;
+  const { endPoint, arg } = props;
+  console.log(arg);
   return axios({
     method: "post",
     url: `${url}${endPoint}`,
-    headers: { Authorization: "Bearer " },
-    data: {
-      state,
-      arg,
-    },
+    data: arg,
   });
 };
 
