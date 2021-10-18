@@ -17,7 +17,9 @@ export default function LoginContainer(props: any) {
   const { token } = _userData;
   const { isLoading } = _userLoginData;
 
-  console.log(_userData, _userLoginData);
+  useEffect(() => {
+    console.log({ isLoading });
+  }, [isLoading]);
 
   useEffect(() => {
     if (token) {
@@ -26,7 +28,7 @@ export default function LoginContainer(props: any) {
   }, [token]);
 
   if (isLoading) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (

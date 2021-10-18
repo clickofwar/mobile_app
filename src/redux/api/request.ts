@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Platform } from "react-native";
 import { PROD_URL, LOCAL_URL } from "@env";
+import * as Analytics from "expo-firebase-analytics";
 
 let url = PROD_URL;
 if (Platform.OS === "web") {
@@ -9,7 +10,6 @@ if (Platform.OS === "web") {
 
 export const request = (props: any) => {
   const { endPoint, arg } = props;
-  console.log(arg);
   return axios({
     method: "post",
     url: `${url}${endPoint}`,
@@ -29,3 +29,15 @@ export const requestAuthorized = (props: any) => {
     },
   });
 };
+
+export const measureAPI = (props: any) => {
+  const { type, t0, t1 } = props;
+  let time = t1 - t0;
+  console.log({ time });
+  googleEvent({ type, time });
+};
+
+async function googleEvent(props: any) {
+  const { type, time } = props;
+  await Analytics.logEvent(type, { time });
+}

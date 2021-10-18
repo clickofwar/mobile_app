@@ -10,12 +10,7 @@ import counterReducer from "./reducers/counterSlice";
 import routeReducer from "./reducers/routeSlice";
 import socketSlice from "./reducers/socketSlice";
 import userSlice from "./reducers/userSlice";
-
-const loggingMiddleware = (store: any) => (next: any) => (action: any) => {
-  console.log("Redux Type ==> ", action.type);
-  console.log("Redux Payload ==> ", action.payload);
-  next(action);
-};
+import { loggingMiddleware } from "./middleware/index";
 
 const reducers = combineReducers({
   counter: counterReducer,

@@ -1,31 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { chuckApi } from "../api/chuckApi";
-import { request } from "../api/request";
+import { request, measureAPI } from "../api/request";
 import { RootState } from "../store";
 
 export const userLogin = createAsyncThunk(
   "user/login",
   async (arg: any, { getState, dispatch }) => {
     //const state = getState();
+
+    let t0 = performance.now();
     const endPoint = "users/find";
     const response = await request({ arg, endPoint });
-
-    console.log({ response });
+    measureAPI({ type: "user/login", t0, t1: performance.now() });
     return response;
   }
 );
 
-export const userSignup = createAsyncThunk(
-  "user/signup",
-  async (arg: any, { getState, dispatch }) => {
-    //const state = getState();
-    const endPoint = "users/add";
-    const response = await request({ arg, endPoint });
+export const userSignup = createAsyncThunk("user/signup", async (arg: any) => {
+  let t0 = performance.now();
+  const endPoint = "users/add";
+  const response = await request({ arg, endPoint });
+  measureAPI({ type: "user/signup", t0, t1: performance.now() });
 
-    console.log({ response });
-    return response;
-  }
-);
+  return response;
+});
 
 export interface routeState {
   data: any;
