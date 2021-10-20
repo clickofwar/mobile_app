@@ -28,7 +28,7 @@ export default function LoginContainer(props: any) {
   }, [token]);
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading title="Logging In..." />;
   }
 
   return (

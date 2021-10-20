@@ -11,12 +11,14 @@ import routeReducer from "./reducers/routeSlice";
 import socketSlice from "./reducers/socketSlice";
 import userSlice from "./reducers/userSlice";
 import { loggingMiddleware } from "./middleware/index";
+import cmsSlice from "./reducers/cmsSlice";
 
 const reducers = combineReducers({
   counter: counterReducer,
   route: routeReducer,
   socket: socketSlice,
   user: userSlice,
+  cms: cmsSlice,
 });
 
 const persistConfig = {

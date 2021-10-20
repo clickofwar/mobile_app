@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Platform } from "react-native";
 import { PROD_URL, LOCAL_URL } from "@env";
-import * as Analytics from "expo-firebase-analytics";
+import { googleTimeEvent } from "../middleware/google";
+import { amplitudeTimeEvent } from "../middleware/amplitude";
 
 let url = PROD_URL;
 if (Platform.OS === "web") {
@@ -33,11 +34,6 @@ export const requestAuthorized = (props: any) => {
 export const measureAPI = (props: any) => {
   const { type, t0, t1 } = props;
   let time = t1 - t0;
-  console.log({ time });
-  googleEvent({ type, time });
+  //googleTimeEvent({ type, time });
+  amplitudeTimeEvent({ type, time });
 };
-
-async function googleEvent(props: any) {
-  const { type, time } = props;
-  await Analytics.logEvent(type, { time });
-}

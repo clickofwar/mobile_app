@@ -24,7 +24,7 @@ export default function SignupContainer(props: any) {
   }, [token]);
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading title="Signing in..." />;
   }
 
   return (

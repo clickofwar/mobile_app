@@ -102,6 +102,10 @@ export const userSlice = createSlice({
 
 export const { logout } = userSlice.actions;
 
+export const stateData = (state: RootState) => ({
+  state: state,
+});
+
 export const userLoginData = (state: RootState) => ({
   isLoading: state.user.loginIsLoading,
   error: state.user.loginError,
