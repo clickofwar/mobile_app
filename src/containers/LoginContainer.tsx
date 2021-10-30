@@ -18,10 +18,6 @@ export default function LoginContainer(props: any) {
   const { isLoading } = _userLoginData;
 
   useEffect(() => {
-    console.log({ isLoading });
-  }, [isLoading]);
-
-  useEffect(() => {
     if (token) {
       navigation.navigate("Home");
     }

@@ -8,6 +8,33 @@ export default function Button(props: any) {
   let buttonPressedStyles = {};
   let textPressedStyles = {};
 
+  if (isText) {
+    textPressedStyles = isPressed ? { color: "#e3e3e3" } : {};
+
+    return (
+      <Pressable
+        style={{
+          ...textStyles.button,
+          ...buttonStyle,
+          ...buttonPressedStyles,
+        }}
+        onPress={onPress}
+        onPressIn={() => setIsPressed(true)}
+        onPressOut={() => setIsPressed(false)}
+      >
+        <Text
+          style={{
+            ...textStyles.text,
+            ...textStyle,
+            ...textPressedStyles,
+          }}
+        >
+          {title}
+        </Text>
+      </Pressable>
+    );
+  }
+
   if (isSecondary) {
     buttonPressedStyles = isPressed ? { backgroundColor: "#e3e3e3" } : {};
 
@@ -96,6 +123,21 @@ const secondaryStyles = {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
+  },
+};
+
+const textStyles = {
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 32,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
     letterSpacing: 0.25,
     color: "black",
   },

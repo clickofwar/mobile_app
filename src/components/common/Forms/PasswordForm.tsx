@@ -1,43 +1,36 @@
 import React from "react";
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
-import Button from "./Button";
-import Input from "./Input";
-import { AlignView } from "./Views";
-import { usernameEmailPassword } from "../../helpers/formValidation";
+import Button from "../Button";
+import Input from "../Input";
+import { AlignView } from "../Views";
+import { passwordValidation } from "../../../helpers/formValidation";
 
-const SignupForm = (props: any) => {
+const PasswordForm = (props: any) => {
   const { callback } = props;
   return (
     <Formik
-      initialValues={{ username: "", email: "", password: "" }}
-      validate={usernameEmailPassword}
+      initialValues={{ password: "", password2: "" }}
+      validate={passwordValidation}
       onSubmit={(values) => callback(values)}
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
         <View>
-          <Input
-            onChangeText={handleChange("username")}
-            onBlur={handleBlur("username")}
-            value={values.username}
-            error={errors.username}
-            placeholder="username"
-            label="username"
-          />
-          <Input
-            onChangeText={handleChange("email")}
-            onBlur={handleBlur("email")}
-            value={values.email}
-            error={errors.email}
-            placeholder="email"
-            label="email"
-          />
           <Input
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             value={values.password}
             error={errors.password}
             placeholder="password"
+            label="password"
+            secureTextEntry={true}
+          />
+          <Input
+            onChangeText={handleChange("password2")}
+            onBlur={handleBlur("password2")}
+            value={values.password2}
+            error={errors.password2}
+            placeholder="re-enter password"
             label="password"
             secureTextEntry={true}
           />
@@ -64,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupForm;
+export default PasswordForm;

@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import { CenterView } from "../common/Views";
 import Button from "../common/Button";
+import MainButtons from "./mainButtons/MainButtons";
 
 export default function HomeScreen(props: any) {
   const { logout, navigation, cmsData } = props;
@@ -19,16 +20,9 @@ export default function HomeScreen(props: any) {
           {cmsData.homeTitle}
         </Text>
       )}
-      <Text
-        style={{
-          fontSize: 16,
-          lineHeight: 21,
-          fontWeight: "bold",
-          letterSpacing: 0.25,
-        }}
-      >
-        Home Screen
-      </Text>
+
+      <MainButtons />
+
       <Button
         title="Logout"
         isSecondary={true}

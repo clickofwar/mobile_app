@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, KeyboardAvoidingView, Platform } from "react-native";
-import SignupForm from "../common/SignupForm";
+import SignupForm from "../common/Forms/SignupForm";
 import Button from "../common/Button";
 
 export default function SignupScreen(props: any) {

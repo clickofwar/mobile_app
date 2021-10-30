@@ -12,6 +12,7 @@ import socketSlice from "./reducers/socketSlice";
 import userSlice from "./reducers/userSlice";
 import { loggingMiddleware } from "./middleware/index";
 import cmsSlice from "./reducers/cmsSlice";
+import passwordSlice from "./reducers/passwordSlice";
 
 const reducers = combineReducers({
   counter: counterReducer,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   socket: socketSlice,
   user: userSlice,
   cms: cmsSlice,
+  password: passwordSlice,
 });
 
 const persistConfig = {

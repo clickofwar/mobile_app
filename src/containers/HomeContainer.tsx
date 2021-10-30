@@ -10,7 +10,6 @@ export default function HomeContainer(props: any) {
   const _userData = useAppSelector(userData);
   const _cmsData = useAppSelector(cmsData);
 
-  console.log(_cmsData);
   const { token } = _userData;
 
   useEffect(() => {

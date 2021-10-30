@@ -1,10 +1,10 @@
 import React from "react";
 import { View, KeyboardAvoidingView } from "react-native";
 import { Formik } from "formik";
-import Button from "./Button";
-import Input from "./Input";
-import { AlignView } from "./Views";
-import { emailPassword } from "../../helpers/formValidation";
+import Button from "../Button";
+import Input from "../Input";
+import { AlignView } from "../Views";
+import { emailPassword } from "../../../helpers/formValidation";
 
 const LoginForm = (props: any) => {
   const { callback } = props;

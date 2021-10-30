@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, KeyboardAvoidingView, Platform } from "react-native";
-import LoginForm from "../common/LoginForm";
+import LoginForm from "../common/Forms/LoginForm";
 import Button from "../common/Button";
 
 export default function LoginScreen(props: any) {
@@ -30,6 +30,12 @@ export default function LoginScreen(props: any) {
         onPress={() => navigation.navigate("Signup")}
         buttonStyle={{ marginTop: 25 }}
         isSecondary={true}
+      />
+      <Button
+        title="Forget Password"
+        onPress={() => navigation.navigate("Password")}
+        buttonStyle={{ marginTop: 25 }}
+        isText={true}
       />
     </KeyboardAvoidingView>
   );
