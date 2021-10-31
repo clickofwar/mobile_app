@@ -45,6 +45,10 @@ export default function PasswordScreen(props: any) {
     updatePassword({ password: e.password, code, email });
   };
 
+  if (passwordData?.passwordValid) {
+    navigation.navigate("Login");
+  }
+
   if (emailData?.emailSending) {
     return <Loading title="Sending Email" />;
   }

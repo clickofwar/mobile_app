@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { stateData } from "../redux/reducers/userSlice";
+import { stateData, setPushNotificationId } from "../redux/reducers/userSlice";
 import { getCMS, cmsData } from "../redux/reducers/cmsSlice";
 
 import LoginContainer from "./LoginContainer";
@@ -21,7 +21,9 @@ export default function Route() {
 
   useEffect(() => {
     dispatch(getCMS());
-    registerForPushNotificationsAsync();
+    registerForPushNotificationsAsync().then((data) =>
+      dispatch(setPushNotificationId(data))
+    );
   }, []);
 
   if (_stateData?.state?._persist?.rehydrated && _cmsData.data) {

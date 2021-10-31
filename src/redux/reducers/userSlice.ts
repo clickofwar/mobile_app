@@ -1,20 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { chuckApi } from "../api/chuckApi";
-import { request, measureAPI } from "../api/request";
+import { request, measureAPI, requestAuthorized } from "../api/request";
 import { RootState } from "../store";
 
-export const userLogin = createAsyncThunk(
-  "user/login",
-  async (arg: any, { getState, dispatch }) => {
-    //const state = getState();
-
-    let t0 = performance.now();
-    const endPoint = "users/find";
-    const response = await request({ arg, endPoint });
-    measureAPI({ type: "user/login", t0, t1: performance.now() });
-    return response;
-  }
-);
+export const userLogin = createAsyncThunk("user/login", async (arg: any) => {
+  let t0 = performance.now();
+  const endPoint = "users/find";
+  const response = await request({ arg, endPoint });
+  measureAPI({ type: "user/login", t0, t1: performance.now() });
+  return response;
+});
 
 export const userSignup = createAsyncThunk("user/signup", async (arg: any) => {
   let t0 = performance.now();
@@ -25,17 +20,40 @@ export const userSignup = createAsyncThunk("user/signup", async (arg: any) => {
   return response;
 });
 
+export const userSetNotificationId = createAsyncThunk(
+  "user/setNotificationId",
+  async (arg: any, { getState }) => {
+    let state = getState();
+    let { email, notificationId } = state.user;
+
+    let t0 = performance.now();
+    const endPoint = "users/setNotificationId";
+    const response = await requestAuthorized({
+      arg: { email, notificationId },
+      endPoint,
+      state,
+    });
+    measureAPI({ type: "users/setNotificationId", t0, t1: performance.now() });
+
+    return response;
+  }
+);
+
 export interface routeState {
   data: any;
   email: string;
   username: string;
   token: string;
+  notificationId: string;
 
   loginIsLoading: boolean;
   loginError: any;
 
   signupIsLoading: boolean;
   signupError: any;
+
+  idIsLoading: boolean;
+  idError: any;
 }
 
 const initialState: routeState = {
@@ -43,12 +61,16 @@ const initialState: routeState = {
   email: "",
   username: "",
   token: "",
+  notificationId: "",
 
   loginIsLoading: false,
   loginError: null,
 
   signupIsLoading: false,
   signupError: null,
+
+  idIsLoading: false,
+  idError: null,
 };
 
 export const userSlice = createSlice({
@@ -60,6 +82,9 @@ export const userSlice = createSlice({
       state.email = "";
       state.username = "";
       state.data = "";
+    },
+    setPushNotificationId: (state, action) => {
+      state.notificationId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -97,10 +122,23 @@ export const userSlice = createSlice({
         state.data = null;
         state.signupError = action.error;
       });
+    builder
+      .addCase(userSetNotificationId.pending, (state) => {
+        state.idIsLoading = true;
+        state.idError = null;
+      })
+      .addCase(userSetNotificationId.fulfilled, (state) => {
+        state.idIsLoading = false;
+        state.idError = null;
+      })
+      .addCase(userSetNotificationId.rejected, (state, action) => {
+        state.idIsLoading = false;
+        state.idError = action.error;
+      });
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setPushNotificationId } = userSlice.actions;
 
 export const stateData = (state: RootState) => ({
   state: state,

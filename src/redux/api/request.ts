@@ -19,15 +19,12 @@ export const request = (props: any) => {
 };
 
 export const requestAuthorized = (props: any) => {
-  const { endPoint, state, arg } = props;
+  const { endPoint, arg, state } = props;
   return axios({
     method: "post",
     url: `${url}${endPoint}`,
-    headers: { Authorization: "Bearer " },
-    data: {
-      state,
-      arg,
-    },
+    headers: { Authorization: `Bearer ${state?.user?.token}` },
+    data: arg,
   });
 };
 
