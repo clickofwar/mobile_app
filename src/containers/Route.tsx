@@ -20,12 +20,15 @@ export default function Route() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    //Grab Content Management System Data
     dispatch(getCMS());
+    //Set Push Notifications Id to Redux State
     registerForPushNotificationsAsync().then((data) =>
       dispatch(setPushNotificationId(data))
     );
   }, []);
 
+  //If redux state is rehydrated and CMS data is loaded show screen
   if (_stateData?.state?._persist?.rehydrated && _cmsData.data) {
     return (
       <NavigationContainer>

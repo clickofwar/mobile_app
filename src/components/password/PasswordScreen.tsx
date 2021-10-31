@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Platform, KeyboardAvoidingView } from "react-native";
+import { Text, Platform, KeyboardAvoidingView } from "react-native";
 import EmailForm from "../common/Forms/EmailForm";
 import Loading from "../common/Loading";
 import Button from "../common/Button";
@@ -7,41 +7,62 @@ import { CenterView } from "../common/Views";
 import CodeForm from "../common/Forms/CodeForm";
 import PasswordForm from "../common/Forms/PasswordForm";
 
-export default function PasswordScreen(props: any) {
+interface props {
+  reset: () => {};
+  navigation: any;
+  emailData: any;
+  codeData: any;
+  passwordData: any;
+  sendEmail: (e: emailArg) => {};
+  checkCode: (e: codeArg) => {};
+  updatePassword: (e: passwordArg) => {};
+}
+
+interface emailArg {
+  email: string;
+}
+
+interface codeArg {
+  email: string;
+  code: string;
+}
+
+interface passwordArg {
+  email: string;
+  code: string;
+  password: string;
+}
+
+export default function PasswordScreen(props: props) {
   const {
     reset,
     emailData,
-    sendEmail,
     navigation,
     codeData,
+    passwordData,
+    sendEmail,
     checkCode,
     updatePassword,
-    passwordData,
   } = props;
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
+
+  //Reset all password state everytime
   useEffect(() => {
     reset();
   }, []);
 
-  useEffect(() => {
-    console.log(passwordData);
-  }, [passwordData]);
-
   const submitEmail = (e: any) => {
-    console.log(e);
     sendEmail(e);
     setEmail(e.email);
   };
 
   const submitCode = (e: any) => {
-    console.log({ email, code: e.code });
     checkCode({ email, code: e.code });
     setCode(e.code);
   };
 
   const submitPassword = (e: any) => {
-    console.log(e);
     updatePassword({ password: e.password, code, email });
   };
 

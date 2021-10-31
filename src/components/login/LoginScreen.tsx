@@ -3,7 +3,13 @@ import { Text, KeyboardAvoidingView, Platform } from "react-native";
 import LoginForm from "../common/Forms/LoginForm";
 import Button from "../common/Button";
 
-export default function LoginScreen(props: any) {
+interface props {
+  callback: any;
+  navigation: any;
+  userLoginData: any;
+}
+
+export default function LoginScreen(props: props) {
   const { callback, navigation, userLoginData } = props;
 
   return (
@@ -21,7 +27,7 @@ export default function LoginScreen(props: any) {
       >
         Login Screen
       </Text>
-      {userLoginData.error && (
+      {userLoginData?.error && (
         <Text style={{ marginTop: 10 }}>Wrong Email or Password</Text>
       )}
       <LoginForm callback={callback} />

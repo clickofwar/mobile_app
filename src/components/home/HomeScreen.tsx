@@ -4,7 +4,13 @@ import { CenterView } from "../common/Views";
 import Button from "../common/Button";
 import MainButtons from "./mainButtons/MainButtons";
 
-export default function HomeScreen(props: any) {
+interface props {
+  logout: () => {};
+  navigation: any;
+  cmsData: any;
+}
+
+export default function HomeScreen(props: props) {
   const { logout, navigation, cmsData } = props;
   return (
     <CenterView>

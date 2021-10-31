@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "clickwar",
+    "slug": "clickwar",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,31 +15,16 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.company.clickwar",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.company.clickwar",
-      "googleServicesFile": "./google-services.json"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "config": {
-        "firebase": {
-          "apiKey": "AIzaSyBErIYzqUxdLd5fN2R5UdNmQflU2bsNwtw",
-          "authDomain": "first-97a32.firebaseapp.com",
-          "projectId": "first-97a32",
-          "storageBucket": "first-97a32.appspot.com",
-          "messagingSenderId": "117694867741",
-          "appId": "1:117694867741:web:0d8914ea8e14721e3899f4",
-          "measurementId": "G-ZH2HQTLH6W"
-        }
-      }
+      "favicon": "./assets/favicon.png"
     }
   }
 }

@@ -8,7 +8,11 @@ import {
 import { cmsData } from "../redux/reducers/cmsSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 
-export default function HomeContainer(props: any) {
+interface props {
+  navigation: any;
+}
+
+export default function HomeContainer(props: props) {
   const { navigation } = props;
   const dispatch = useAppDispatch();
   const _userData = useAppSelector(userData);
@@ -20,10 +24,16 @@ export default function HomeContainer(props: any) {
     if (!token) {
       navigation.navigate("Login");
     } else {
+      //Send latest push notification Id
       dispatch(userSetNotificationId());
     }
   }, [token]);
+
   return (
-    <HomeScreen cmsData={_cmsData.data} logout={() => dispatch(logout())} />
+    <HomeScreen
+      cmsData={_cmsData.data}
+      logout={() => dispatch(logout())}
+      navigation={navigation}
+    />
   );
 }

@@ -8,14 +8,23 @@ import {
 } from "../redux/reducers/userSlice";
 import Loading from "../components/common/Loading";
 
-export default function SignupContainer(props: any) {
+interface props {
+  navigation: any;
+}
+
+interface callbackProps {
+  email: string;
+  password: string;
+  username: string;
+}
+
+export default function SignupContainer(props: props) {
   const { navigation } = props;
   const dispatch = useAppDispatch();
   const _userData = useAppSelector(userData);
   const _userSignupData = useAppSelector(userSignupData);
 
   const { token } = _userData;
-  const { isLoading } = _userSignupData;
 
   useEffect(() => {
     if (token) {
@@ -23,13 +32,13 @@ export default function SignupContainer(props: any) {
     }
   }, [token]);
 
-  if (isLoading) {
+  if (_userSignupData?.isLoading) {
     return <Loading title="Signing in..." />;
   }
 
   return (
     <SignupScreen
-      callback={(e: any) => dispatch(userSignup(e))}
+      callback={(e: callbackProps) => dispatch(userSignup(e))}
       userSignupData={_userSignupData}
       {...props}
     />

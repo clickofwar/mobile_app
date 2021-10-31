@@ -3,7 +3,13 @@ import { Text, KeyboardAvoidingView, Platform } from "react-native";
 import SignupForm from "../common/Forms/SignupForm";
 import Button from "../common/Button";
 
-export default function SignupScreen(props: any) {
+interface props {
+  callback: any;
+  navigation: any;
+  userSignupData: any;
+}
+
+export default function SignupScreen(props: props) {
   const { callback, navigation, userSignupData } = props;
   return (
     <KeyboardAvoidingView
@@ -20,7 +26,7 @@ export default function SignupScreen(props: any) {
       >
         Signup Screen
       </Text>
-      {userSignupData.error && (
+      {userSignupData?.error && (
         <Text style={{ marginTop: 10 }}>
           Something went wrong, please try again
         </Text>

@@ -6,18 +6,12 @@ import {
 } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import counterReducer from "./reducers/counterSlice";
-import routeReducer from "./reducers/routeSlice";
-import socketSlice from "./reducers/socketSlice";
 import userSlice from "./reducers/userSlice";
 import { loggingMiddleware } from "./middleware/index";
 import cmsSlice from "./reducers/cmsSlice";
 import passwordSlice from "./reducers/passwordSlice";
 
 const reducers = combineReducers({
-  counter: counterReducer,
-  route: routeReducer,
-  socket: socketSlice,
   user: userSlice,
   cms: cmsSlice,
   password: passwordSlice,

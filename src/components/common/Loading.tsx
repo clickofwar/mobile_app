@@ -2,10 +2,15 @@ import React from "react";
 import { ActivityIndicator, Text } from "react-native";
 import { CenterView } from "./Views";
 
-export default function Loading({ title = "" }) {
+interface props {
+  title?: string;
+}
+
+export default function Loading(props: props) {
+  const { title } = props;
   return (
     <CenterView>
-      <ActivityIndicator size="large" />
+      <ActivityIndicator size="small" />
       <Text
         style={{
           fontSize: 16,

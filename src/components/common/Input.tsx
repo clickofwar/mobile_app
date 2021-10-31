@@ -1,7 +1,17 @@
-import React, { useState, useRef } from "react";
-import { TextInput, View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { TextInput, Text, StyleSheet } from "react-native";
 
-export default function Input(props: any) {
+interface props {
+  onChangeText: () => any;
+  onBlur: (e: any) => any;
+  placeholder: string;
+  value: any;
+  error: any;
+  label: any;
+  secureTextEntry?: boolean;
+}
+
+export default function Input(props: props) {
   const {
     onChangeText,
     onBlur,
@@ -33,7 +43,7 @@ export default function Input(props: any) {
         onChangeText={onChangeText}
         value={value}
         placeholder={placeholder}
-        style={{ ...styles.container, ...focusStyle }}
+        style={[styles.container, focusStyle]}
         secureTextEntry={secureTextEntry}
       />
       {error && <Text style={{ color: "red" }}>{error}</Text>}
@@ -41,7 +51,7 @@ export default function Input(props: any) {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
@@ -50,4 +60,4 @@ const styles = {
     height: 50,
     borderRadius: 3,
   },
-};
+});

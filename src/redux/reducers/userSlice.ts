@@ -1,41 +1,64 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { chuckApi } from "../api/chuckApi";
 import { request, measureAPI, requestAuthorized } from "../api/request";
 import { RootState } from "../store";
 
-export const userLogin = createAsyncThunk("user/login", async (arg: any) => {
-  let t0 = performance.now();
-  const endPoint = "users/find";
-  const response = await request({ arg, endPoint });
-  measureAPI({ type: "user/login", t0, t1: performance.now() });
-  return response;
-});
+interface loginProps {
+  email: string;
+  password: string;
+}
 
-export const userSignup = createAsyncThunk("user/signup", async (arg: any) => {
-  let t0 = performance.now();
-  const endPoint = "users/add";
-  const response = await request({ arg, endPoint });
-  measureAPI({ type: "user/signup", t0, t1: performance.now() });
+interface signupProps {
+  email: string;
+  password: string;
+  username: string;
+}
 
-  return response;
-});
+export const userLogin = createAsyncThunk(
+  "user/login",
+  async (arg: loginProps) => {
+    let t0 = performance.now();
+    const endPoint = "users/find";
+    const response = await request({ arg, endPoint });
+    measureAPI({ type: "user/login", t0, t1: performance.now() });
+    return response;
+  }
+);
+
+export const userSignup = createAsyncThunk(
+  "user/signup",
+  async (arg: signupProps) => {
+    let t0 = performance.now();
+    const endPoint = "users/add";
+    const response = await request({ arg, endPoint });
+    measureAPI({ type: "user/signup", t0, t1: performance.now() });
+
+    return response;
+  }
+);
 
 export const userSetNotificationId = createAsyncThunk(
   "user/setNotificationId",
-  async (arg: any, { getState }) => {
-    let state = getState();
-    let { email, notificationId } = state.user;
+  async (_, { getState }) => {
+    let state: any = getState();
+    let { email, notificationId } = state?.user;
 
-    let t0 = performance.now();
-    const endPoint = "users/setNotificationId";
-    const response = await requestAuthorized({
-      arg: { email, notificationId },
-      endPoint,
-      state,
-    });
-    measureAPI({ type: "users/setNotificationId", t0, t1: performance.now() });
-
-    return response;
+    if (notificationId && email) {
+      let t0 = performance.now();
+      const endPoint = "users/setNotificationId";
+      const response = await requestAuthorized({
+        arg: { email, notificationId },
+        endPoint,
+        state,
+      });
+      measureAPI({
+        type: "users/setNotificationId",
+        t0,
+        t1: performance.now(),
+      });
+      return response;
+    } else {
+      return null;
+    }
   }
 );
 
@@ -93,7 +116,7 @@ export const userSlice = createSlice({
         state.loginIsLoading = true;
         state.loginError = null;
       })
-      .addCase(userLogin.fulfilled, (state, action) => {
+      .addCase(userLogin.fulfilled, (state, action: any) => {
         state.loginIsLoading = false;
         state.data = action.payload.data;
         state.email = action.payload.data.email;
@@ -110,7 +133,7 @@ export const userSlice = createSlice({
         state.signupIsLoading = true;
         state.signupError = null;
       })
-      .addCase(userSignup.fulfilled, (state, action) => {
+      .addCase(userSignup.fulfilled, (state, action: any) => {
         state.signupIsLoading = false;
         state.data = action.payload.data;
         state.email = action.payload.data.email;

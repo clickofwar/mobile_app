@@ -2,13 +2,18 @@ import * as Amplitude from "expo-analytics-amplitude";
 import { Platform } from "react-native";
 import { AMPLITUDE_KEY } from "@env";
 
-export const amplitudeEvent = (action: any) => {
+interface action {
+  type: any;
+  payload: any;
+}
+
+export const amplitudeEvent = (action: action) => {
   if (Platform.OS !== "web") {
-    intialize(action);
+    record(action);
   }
 };
 
-async function intialize(action: any) {
+async function record(action: action) {
   await Amplitude.initializeAsync(AMPLITUDE_KEY);
 
   if (

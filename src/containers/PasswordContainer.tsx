@@ -12,7 +12,11 @@ import {
   updatePassword,
 } from "../redux/reducers/passwordSlice";
 
-export default function PasswordContainer(props: any) {
+interface props {
+  navigation: props;
+}
+
+export default function PasswordContainer(props: props) {
   const { navigation } = props;
   const dispatch = useAppDispatch();
   const emailData = useAppSelector(passwordEmailData);
@@ -25,9 +29,9 @@ export default function PasswordContainer(props: any) {
       codeData={codeData}
       passwordData={passwordData}
       reset={() => dispatch(reset())}
-      sendEmail={(e: any) => dispatch(sendEmail(e))}
-      checkCode={(e: any) => dispatch(checkCode(e))}
-      updatePassword={(e: any) => dispatch(updatePassword(e))}
+      sendEmail={(e) => dispatch(sendEmail(e))}
+      checkCode={(e) => dispatch(checkCode(e))}
+      updatePassword={(e) => dispatch(updatePassword(e))}
       {...props}
     />
   );

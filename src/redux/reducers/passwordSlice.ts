@@ -1,11 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { chuckApi } from "../api/chuckApi";
 import { request, measureAPI } from "../api/request";
 import { RootState } from "../store";
 
+interface emailProps {
+  email: string;
+}
+
+interface codeProps {
+  email: string;
+  code: string;
+}
+
+interface passwordProps {
+  email: string;
+  code: string;
+  password: string;
+}
+
 export const sendEmail = createAsyncThunk(
   "password/sendEmail",
-  async (arg: any) => {
+  async (arg: emailProps) => {
     let t0 = performance.now();
     const endPoint = "users/sendEmailCode";
     const response = await request({ arg, endPoint });
@@ -16,7 +30,7 @@ export const sendEmail = createAsyncThunk(
 
 export const checkCode = createAsyncThunk(
   "password/checkCode",
-  async (arg: any) => {
+  async (arg: codeProps) => {
     let t0 = performance.now();
     const endPoint = "users/checkEmailCode";
     const response = await request({ arg, endPoint });
@@ -27,7 +41,7 @@ export const checkCode = createAsyncThunk(
 
 export const updatePassword = createAsyncThunk(
   "password/updatePassword",
-  async (arg: any) => {
+  async (arg: passwordProps) => {
     let t0 = performance.now();
     const endPoint = "users/updatePassword";
     const response = await request({ arg, endPoint });

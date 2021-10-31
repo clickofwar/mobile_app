@@ -1,5 +1,5 @@
 export const passwordValidation = (values: any) => {
-  const errors = {};
+  const errors: any = {};
 
   if (!values.password) {
     errors.password = "Required";
@@ -19,7 +19,7 @@ export const passwordValidation = (values: any) => {
 };
 
 export const codeValidation = (values: any) => {
-  const errors = {};
+  const errors: any = {};
 
   if (!values.code) {
     errors.code = "Required";
@@ -31,7 +31,7 @@ export const codeValidation = (values: any) => {
 };
 
 export const emailValidation = (values: any) => {
-  const errors = {};
+  const errors: any = {};
 
   if (!values.email) {
     errors.email = "Required";
@@ -43,7 +43,7 @@ export const emailValidation = (values: any) => {
 };
 
 export const emailPassword = (values: any) => {
-  const errors = {};
+  const errors: any = {};
 
   if (!values.email) {
     errors.email = "Required";
@@ -61,7 +61,7 @@ export const emailPassword = (values: any) => {
 };
 
 export const usernameEmailPassword = (values: any) => {
-  const errors = {};
+  const errors: any = {};
 
   if (!values.username) {
     errors.username = "Required";
