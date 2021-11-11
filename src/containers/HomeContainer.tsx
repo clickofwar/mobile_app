@@ -7,6 +7,7 @@ import {
 } from "../redux/reducers/userSlice";
 import { cmsData } from "../redux/reducers/cmsSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import ModalContainer from "./ModalContainer";
 
 interface props {
   navigation: any;
@@ -18,7 +19,7 @@ export default function HomeContainer(props: props) {
   const _userData = useAppSelector(userData);
   const _cmsData = useAppSelector(cmsData);
 
-  const { token } = _userData;
+  const { token, username } = _userData;
 
   useEffect(() => {
     if (!token) {
@@ -30,10 +31,14 @@ export default function HomeContainer(props: props) {
   }, [token]);
 
   return (
-    <HomeScreen
-      cmsData={_cmsData.data}
-      logout={() => dispatch(logout())}
-      navigation={navigation}
-    />
+    <>
+      <HomeScreen
+        cmsData={_cmsData.data}
+        logout={() => dispatch(logout())}
+        navigation={navigation}
+        username={username}
+      />
+      <ModalContainer />
+    </>
   );
 }

@@ -2,14 +2,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { db } from "../../../firebase";
 import { measureAPI } from "../api/request";
 import { RootState } from "../store";
+import { update } from "./modalSlice";
+import { useAppDispatch } from "../../hooks/hooks";
 
-export const getCMS = createAsyncThunk("get/CMS", async () => {
-  let t0 = performance.now();
-  const snapshot = await db.ref().once("value");
-  const value = snapshot.val();
-  measureAPI({ type: "get/cms", t0, t1: performance.now() });
-  return value;
-});
+export const getCMS = createAsyncThunk(
+  "get/CMS",
+  async (_, { dispatch, getState }) => {
+    let state: any = getState();
+    let t0 = performance.now();
+    const snapshot = await db.ref().once("value");
+    const value = snapshot.val();
+    measureAPI({ type: "get/cms", t0, t1: performance.now() });
+
+    dispatch(update({ value, currentVersion: state.modal.version }));
+    return value;
+  }
+);
 
 export interface routeState {
   data: any;

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { windowWidth } from "../../../helpers/dimensions";
 
-export default function DarkButton() {
+export default function DarkButton(props: any) {
+  const { callback } = props;
   const [isPressed, setIsPressed] = useState(false);
 
   let buttonPressedStyles = {};
@@ -34,7 +35,7 @@ export default function DarkButton() {
   textPressedStyles = isPressed ? { color: "black" } : {};
 
   const onPress = () => {
-    console.log("clicked");
+    callback(-1);
   };
 
   return (

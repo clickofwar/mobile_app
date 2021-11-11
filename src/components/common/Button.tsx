@@ -3,7 +3,7 @@ import { Pressable, Text } from "react-native";
 
 interface props {
   title: string;
-  onPress: () => {};
+  onPress: any;
   isSecondary?: boolean;
   isText?: boolean;
   buttonStyle?: object;
@@ -26,9 +26,9 @@ export default function Button(props: props) {
         {({ pressed }) => (
           <Text
             style={[
+              { color: pressed ? "#e3e3e3" : "black" },
               textStyles.text,
               textStyle,
-              { color: pressed ? "#e3e3e3" : "black" },
             ]}
           >
             {title}

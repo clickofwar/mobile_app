@@ -10,17 +10,19 @@ import userSlice from "./reducers/userSlice";
 import { loggingMiddleware } from "./middleware/index";
 import cmsSlice from "./reducers/cmsSlice";
 import passwordSlice from "./reducers/passwordSlice";
+import modalSlice from "./reducers/modalSlice";
 
 const reducers = combineReducers({
   user: userSlice,
   cms: cmsSlice,
   password: passwordSlice,
+  modal: modalSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["user"], // only [] will be persisted
+  whitelist: ["user", "modal"], // only [] will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

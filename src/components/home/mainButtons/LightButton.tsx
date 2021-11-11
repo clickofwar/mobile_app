@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { windowWidth } from "../../../helpers/dimensions";
 
-export default function LightButton() {
+export default function LightButton(props: any) {
+  const { callback } = props;
   const [isPressed, setIsPressed] = useState(false);
 
   let buttonPressedStyles = {};
@@ -32,7 +33,7 @@ export default function LightButton() {
   textPressedStyles = isPressed ? { color: "black" } : {};
 
   const onPress = () => {
-    console.log("clicked");
+    callback(1);
   };
 
   return (
