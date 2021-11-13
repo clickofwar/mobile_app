@@ -5,6 +5,7 @@ import { stateData, setPushNotificationId } from "./redux/reducers/userSlice";
 import { getCMS, cmsData } from "./redux/reducers/cmsSlice";
 import Loading from "./components/common/Loading";
 import { registerForPushNotificationsAsync } from "./helpers/pushNotifications";
+import ModalContainer from "./containers/ModalContainer";
 
 export default function Index() {
   const _stateData = useAppSelector(stateData);
@@ -25,6 +26,7 @@ export default function Index() {
     return (
       <>
         <Route />
+        <ModalContainer />
       </>
     );
   } else {

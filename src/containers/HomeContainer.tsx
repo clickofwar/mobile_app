@@ -6,8 +6,8 @@ import {
   userSetNotificationId,
 } from "../redux/reducers/userSlice";
 import { cmsData } from "../redux/reducers/cmsSlice";
+import { update, close } from "../redux/reducers/modalSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import ModalContainer from "./ModalContainer";
 
 interface props {
   navigation: any;
@@ -38,7 +38,6 @@ export default function HomeContainer(props: props) {
         navigation={navigation}
         username={username}
       />
-      <ModalContainer />
     </>
   );
 }

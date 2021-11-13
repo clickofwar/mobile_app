@@ -3,6 +3,8 @@ import { Text, View } from "react-native";
 import { CenterView } from "../common/Views";
 import Button from "../common/Button";
 import MainButtonsContainer from "./mainButtons/MainButtonsContainer";
+import { useAppDispatch } from "../../hooks/hooks";
+import { update, close } from "../../redux/reducers/modalSlice";
 
 interface props {
   logout: () => {};
@@ -12,6 +14,7 @@ interface props {
 }
 
 export default function HomeScreen(props: props) {
+  const dispatch = useAppDispatch();
   const { logout, navigation, cmsData, username } = props;
   const [liveScore, setLiveScore] = useState(0);
   const [submittedScore, setSubmittedScore] = useState(0);
@@ -52,6 +55,29 @@ export default function HomeScreen(props: props) {
         setLiveScore={setLiveScore}
         callback={submitScore}
         submittedScore={submittedScore}
+      />
+
+      <Button
+        onPress={() =>
+          dispatch(
+            update({
+              data: {
+                title: "dude",
+                description: "Short Description",
+                primaryButton: {
+                  title: "Okay",
+                  callback: close(),
+                },
+                secondaryButton: {
+                  title: "Cancel",
+                  callback: close(),
+                },
+              },
+            })
+          )
+        }
+        title="Show Modal"
+        isText={true}
       />
 
       <Button

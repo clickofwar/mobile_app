@@ -1,23 +1,35 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { windowHeight, windowWidth } from "../../helpers/dimensions";
-import Button from "./Button";
+import { windowHeight, windowWidth } from "../../../helpers/dimensions";
+import Button from "../Button";
 
-export default function Modal(props: any) {
-  const { data, callback } = props;
+interface props {
+  callback: () => any;
+  image?: string;
+  title: string;
+  description: string;
+  backgroundColor?: string;
+}
+
+export default function PopupModal(props: props) {
+  const {
+    callback,
+    image = "",
+    title = "",
+    description = "",
+    backgroundColor = "",
+  } = props;
   return (
     <View style={[styles.container, { paddingBottom: windowHeight * 0.2 }]}>
       <View
         style={[
           styles.view,
           {
-            backgroundColor: data?.backgroundColor
-              ? data?.backgroundColor
-              : "white",
+            backgroundColor: backgroundColor ? backgroundColor : "white",
           },
         ]}
       >
-        {data?.image && (
+        {image && (
           <Image
             style={{
               height: windowWidth * 0.5,
@@ -25,14 +37,12 @@ export default function Modal(props: any) {
               padding: 10,
             }}
             source={{
-              uri: data.image,
+              uri: image,
             }}
           />
         )}
-        {data?.title && <Text style={styles.title}>{data?.title}</Text>}
-        {data?.description && (
-          <Text style={styles.description}>{data?.description}</Text>
-        )}
+        {title && <Text style={styles.title}>{title}</Text>}
+        {description && <Text style={styles.description}>{description}</Text>}
       </View>
       <View
         style={{

@@ -3,38 +3,55 @@ import { RootState } from "../store";
 
 export interface routeState {
   data: any;
+  isShowing: any;
+  dataCMS: any;
   version: string;
-  isShowing: boolean;
+  isShowingCMS: boolean;
 }
 
 const initialState: routeState = {
   data: null,
-  version: "",
   isShowing: false,
+  dataCMS: null,
+  version: "",
+  isShowingCMS: false,
 };
 
 export const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    update: (state, action) => {
+    updateCMS: (state, action) => {
       const { currentVersion } = action?.payload;
       const newVersion = action.payload?.value?.modal?.version;
 
       if (newVersion !== currentVersion) {
-        state.isShowing = true;
+        state.isShowingCMS = true;
       }
 
-      state.data = action.payload?.value?.modal;
+      state.dataCMS = action.payload?.value?.modal;
       state.version = action.payload?.value?.modal?.version;
+    },
+    update: (state, action) => {
+      state.data = action.payload?.data;
+      state.isShowing = true;
+    },
+    closeCMS: (state) => {
+      state.isShowingCMS = false;
     },
     close: (state) => {
       state.isShowing = false;
+      state.data = null;
     },
   },
 });
 
-export const { update, close } = modalSlice.actions;
+export const { updateCMS, update, closeCMS, close } = modalSlice.actions;
+
+export const modalCMSData = (state: RootState) => ({
+  isShowingCMS: state.modal.isShowingCMS,
+  dataCMS: state.modal.dataCMS,
+});
 
 export const modalData = (state: RootState) => ({
   isShowing: state.modal.isShowing,
