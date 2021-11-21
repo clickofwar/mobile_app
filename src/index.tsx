@@ -21,19 +21,22 @@ export default function Index() {
     );
   }, []);
 
-  //If redux state is rehydrated and CMS data is loaded show screen
-  if (_stateData?.state?._persist?.rehydrated && _cmsData.data) {
-    return (
-      <>
-        <Route />
-        <ModalContainer />
-      </>
-    );
-  } else {
-    if (_stateData?.state?._persist?.rehydrated) {
-      return <Loading title="Loading CMS Data" />;
-    } else {
-      return <Loading title="Loading Persist Data" />;
-    }
+  if (!_stateData?.state?._persist?.rehydrated) {
+    return <Loading title="Loading Persist Data" />;
   }
+
+  if (_cmsData?.isLoading) {
+    return <Loading title="Loading CMS Data" />;
+  }
+
+  if (!_cmsData?.data?.validCMS) {
+    return <Loading title="Error with CMS Data" />;
+  }
+
+  return (
+    <>
+      <Route />
+      <ModalContainer />
+    </>
+  );
 }

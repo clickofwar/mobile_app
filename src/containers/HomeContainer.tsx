@@ -6,7 +6,7 @@ import {
   userSetNotificationId,
 } from "../redux/reducers/userSlice";
 import { cmsData } from "../redux/reducers/cmsSlice";
-import { update, close } from "../redux/reducers/modalSlice";
+import { scoreData } from "../redux/reducers/scoreSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 
 interface props {
@@ -18,6 +18,7 @@ export default function HomeContainer(props: props) {
   const dispatch = useAppDispatch();
   const _userData = useAppSelector(userData);
   const _cmsData = useAppSelector(cmsData);
+  const _scoreData = useAppSelector(scoreData);
 
   const { token, username } = _userData;
 
@@ -31,13 +32,13 @@ export default function HomeContainer(props: props) {
   }, [token]);
 
   return (
-    <>
-      <HomeScreen
-        cmsData={_cmsData.data}
-        logout={() => dispatch(logout())}
-        navigation={navigation}
-        username={username}
-      />
-    </>
+    <HomeScreen
+      cmsData={_cmsData.data}
+      navigation={navigation}
+      username={username}
+      liveScore={_scoreData.liveScore || 0}
+      score={_scoreData.score || 0}
+      liveStreamScore={_scoreData.liveStreamScore || 0}
+    />
   );
 }

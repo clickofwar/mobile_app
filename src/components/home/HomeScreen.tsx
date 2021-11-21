@@ -1,28 +1,23 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import { CenterView } from "../common/Views";
+import { AlignView, CenterView } from "../common/Views";
 import Button from "../common/Button";
 import MainButtonsContainer from "./mainButtons/MainButtonsContainer";
 import { useAppDispatch } from "../../hooks/hooks";
 import { update, close } from "../../redux/reducers/modalSlice";
 
 interface props {
-  logout: () => {};
   navigation: any;
   cmsData: any;
   username: any;
+  liveScore: number;
+  score: number;
+  liveStreamScore: number;
 }
 
 export default function HomeScreen(props: props) {
-  const dispatch = useAppDispatch();
-  const { logout, navigation, cmsData, username } = props;
-  const [liveScore, setLiveScore] = useState(0);
-  const [submittedScore, setSubmittedScore] = useState(0);
-
-  const submitScore = (score: number) => {
-    console.log(`${score} has been submitted`);
-    setSubmittedScore(score);
-  };
+  const { navigation, cmsData, username, liveScore, score, liveStreamScore } =
+    props;
 
   return (
     <CenterView style={{ justifyContent: "space-around" }}>
@@ -50,40 +45,24 @@ export default function HomeScreen(props: props) {
         </Text>
       </View>
 
-      <MainButtonsContainer
-        liveScore={liveScore}
-        setLiveScore={setLiveScore}
-        callback={submitScore}
-        submittedScore={submittedScore}
-      />
+      <View>
+        <AlignView>
+          <Text>Live Score: {liveScore}</Text>
+        </AlignView>
+        <AlignView>
+          <Text>Live Stream Score: {liveScore ? liveStreamScore : 0}</Text>
+        </AlignView>
+        <AlignView>
+          <Text>Score: {score}</Text>
+        </AlignView>
+      </View>
+
+      <MainButtonsContainer />
 
       <Button
-        onPress={() =>
-          dispatch(
-            update({
-              data: {
-                title: "dude",
-                description: "Short Description",
-                primaryButton: {
-                  title: "Okay",
-                  callback: close(),
-                },
-                secondaryButton: {
-                  title: "Cancel",
-                  callback: close(),
-                },
-              },
-            })
-          )
-        }
-        title="Show Modal"
-        isText={true}
-      />
-
-      <Button
-        title="Logout"
+        title="Settings"
         isSecondary={true}
-        onPress={logout}
+        onPress={() => navigation.navigate("Settings")}
         buttonStyle={{ marginTop: 20 }}
       />
     </CenterView>

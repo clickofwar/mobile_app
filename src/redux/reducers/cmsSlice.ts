@@ -46,7 +46,6 @@ export const cmsSlice = createSlice({
       })
       .addCase(getCMS.rejected, (state, action) => {
         state.isLoading = false;
-        state.data = null;
         state.error = action.error;
       });
   },
@@ -56,6 +55,10 @@ export const cmsData = (state: RootState) => ({
   data: state.cms.data,
   error: state.cms.error,
   isLoading: state.cms.isLoading,
+});
+
+export const cmsScore = (state: RootState) => ({
+  score: state.cms.data?.score,
 });
 
 export default cmsSlice.reducer;
