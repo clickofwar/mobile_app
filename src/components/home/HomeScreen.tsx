@@ -47,7 +47,7 @@ export default function HomeScreen(props: props) {
 
       <View>
         <AlignView>
-          <Text>Live Stream Score: {liveScore ? liveStreamScore : 0}</Text>
+          <Text>Live Stream Score: {liveStreamScore}</Text>
         </AlignView>
         <AlignView>
           <Text>Score: {score}</Text>

@@ -29,6 +29,8 @@ export default function MainButtonsContainer(props: any) {
         if (delta) {
           dispatch(sendStreamScore({ score: delta }));
         }
+      } else {
+        dispatch(sendStreamScore({ score: 0 }));
       }
     }, _cmsScore?.score?.liveScore?.frequency || 500);
 
