@@ -7,6 +7,8 @@ import { cmsScore } from "../../../redux/reducers/cmsSlice";
 import {
   sendStreamScore,
   updateLiveScore,
+  sendUpdatedScore,
+  getUpdatedScore,
 } from "../../../redux/reducers/scoreSlice";
 
 let liveScoreOutside = 0;
@@ -24,7 +26,9 @@ export default function MainButtonsContainer(props: any) {
       if (liveScoreOutside) {
         let delta = liveScoreOutside - prevScoreOutside;
         prevScoreOutside = liveScoreOutside;
-        dispatch(sendStreamScore({ score: delta }));
+        if (delta) {
+          dispatch(sendStreamScore({ score: delta }));
+        }
       }
     }, _cmsScore?.score?.liveScore?.frequency || 500);
 
@@ -43,10 +47,25 @@ export default function MainButtonsContainer(props: any) {
     dispatch(updateLiveScore(liveScore));
   }, [liveScore]);
 
-  //Submit final score
-  const submitScore = (score: number) => {
-    console.log(`${score} has been submitted`);
-    setSubmittedScore(score);
+  //Update Score
+  useEffect(() => {
+    updateScore(0);
+    const interval = setInterval(function () {
+      updateScore(0);
+    }, _cmsScore?.score?.frequency || 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const updateScore = (score: any) => {
+    if (score) {
+      console.log(`${score} has been submitted`);
+      dispatch(sendUpdatedScore({ score }));
+      setSubmittedScore(score);
+    } else {
+      console.log(`${score} has been reloaded`);
+      dispatch(getUpdatedScore());
+    }
   };
 
   return (
@@ -55,7 +74,7 @@ export default function MainButtonsContainer(props: any) {
       <MainButtons
         liveScore={liveScore}
         setLiveScore={setLiveScore}
-        callback={submitScore}
+        callback={updateScore}
         cmsScore={_cmsScore}
       />
     </CenterView>

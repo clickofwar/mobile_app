@@ -47,13 +47,13 @@ export default function HomeScreen(props: props) {
 
       <View>
         <AlignView>
-          <Text>Live Score: {liveScore}</Text>
-        </AlignView>
-        <AlignView>
           <Text>Live Stream Score: {liveScore ? liveStreamScore : 0}</Text>
         </AlignView>
         <AlignView>
           <Text>Score: {score}</Text>
+        </AlignView>
+        <AlignView style={{ marginTop: 20 }}>
+          <Text>My Clicking Score: {liveScore}</Text>
         </AlignView>
       </View>
 

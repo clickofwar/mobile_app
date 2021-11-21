@@ -68,6 +68,7 @@ export interface routeState {
   username: string;
   token: string;
   notificationId: string;
+  score: any;
 
   loginIsLoading: boolean;
   loginError: any;
@@ -85,6 +86,11 @@ const initialState: routeState = {
   username: "",
   token: "",
   notificationId: "",
+  score: {
+    lightScore: 0,
+    darkScore: 0,
+    score: 0,
+  },
 
   loginIsLoading: false,
   loginError: null,
@@ -105,9 +111,17 @@ export const userSlice = createSlice({
       state.email = "";
       state.username = "";
       state.data = "";
+      state.score = {
+        lightScore: 0,
+        darkScore: 0,
+        score: 0,
+      };
     },
     setPushNotificationId: (state, action) => {
       state.notificationId = action.payload;
+    },
+    updateUserScore: (state, action: any) => {
+      state.score = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -161,7 +175,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logout, setPushNotificationId } = userSlice.actions;
+export const { logout, setPushNotificationId, updateUserScore } =
+  userSlice.actions;
 
 export const stateData = (state: RootState) => ({
   state: state,
