@@ -10,7 +10,7 @@ export const sendStreamScore = createAsyncThunk(
     let t0 = performance.now();
     arg.username = state.user.username;
     const endPoint = "score/updateLiveScore";
-    console.log({ arg });
+
     const response = await requestAuthorized({ arg, endPoint, state });
     measureAPI({ type: "score/updateLiveScore", t0, t1: performance.now() });
 
@@ -156,6 +156,7 @@ export const liveScoreData = (state: RootState) => ({
 export const scoreData = (state: RootState) => ({
   liveScore: state.score?.liveScore,
   liveStreamScore: state.score?.liveStreamdata?.score,
+  liveStreamRank: state.score?.liveStreamdata?.rank,
   score: state.score?.score,
 });
 

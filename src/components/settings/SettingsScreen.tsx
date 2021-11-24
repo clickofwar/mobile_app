@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import { update, close } from "../../redux/reducers/modalSlice";
 
 export default function SettingsScreen(props: any) {
-  const { logout, navigation } = props;
+  const { logout, navigation, changeTeams } = props;
   const dispatch = useAppDispatch();
 
   return (
@@ -30,6 +30,11 @@ export default function SettingsScreen(props: any) {
           )
         }
         title="Show Modal"
+        isText={true}
+      />
+      <Button
+        title="Change Teams"
+        onPress={() => changeTeams()}
         isText={true}
       />
 

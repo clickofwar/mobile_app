@@ -6,7 +6,7 @@ import LightButton from "./LightButton";
 var latestTimeOutside = 0;
 var liveScoreOutside = 0;
 export default function MainButtons(props: any) {
-  const { setLiveScore, callback, cmsScore } = props;
+  const { setLiveScore, callback, cmsScore, team } = props;
 
   const clickScore = (type: number) => {
     let date = new Date();
@@ -40,8 +40,8 @@ export default function MainButtons(props: any) {
           flexDirection: "row",
         }}
       >
-        <DarkButton callback={clickScore} />
-        <LightButton callback={clickScore} />
+        {team === "dark" ? <DarkButton callback={clickScore} /> : null}
+        {team === "light" ? <LightButton callback={clickScore} /> : null}
       </View>
     </View>
   );

@@ -8,6 +8,7 @@ import {
 import { cmsData } from "../redux/reducers/cmsSlice";
 import { scoreData } from "../redux/reducers/scoreSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import TeamContainer from "./TeamContainer";
 
 interface props {
   navigation: any;
@@ -31,6 +32,10 @@ export default function HomeContainer(props: props) {
     }
   }, [token]);
 
+  if (_userData?.team !== "light" && _userData?.team !== "dark") {
+    navigation.navigate("Team");
+  }
+
   return (
     <HomeScreen
       cmsData={_cmsData.data}
@@ -39,6 +44,7 @@ export default function HomeContainer(props: props) {
       liveScore={_scoreData.liveScore || 0}
       score={_scoreData.score || 0}
       liveStreamScore={_scoreData.liveStreamScore || 0}
+      liveStreamRank={_scoreData.liveStreamRank || 0}
     />
   );
 }

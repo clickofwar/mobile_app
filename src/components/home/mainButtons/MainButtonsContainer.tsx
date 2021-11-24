@@ -4,6 +4,8 @@ import MainButtons from "./MainButtons";
 import { Text } from "react-native";
 import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
 import { cmsScore } from "../../../redux/reducers/cmsSlice";
+import { userData } from "../../../redux/reducers/userSlice";
+
 import {
   sendStreamScore,
   updateLiveScore,
@@ -17,6 +19,7 @@ let prevScoreOutside = 0;
 export default function MainButtonsContainer(props: any) {
   const dispatch = useAppDispatch();
   const _cmsScore = useAppSelector(cmsScore);
+  const _userData = useAppSelector(userData);
   const [liveScore, setLiveScore] = useState(0);
   const [submittedScore, setSubmittedScore] = useState(0);
 
@@ -29,8 +32,6 @@ export default function MainButtonsContainer(props: any) {
         if (delta) {
           dispatch(sendStreamScore({ score: delta }));
         }
-      } else {
-        dispatch(sendStreamScore({ score: 0 }));
       }
     }, _cmsScore?.score?.liveScore?.frequency || 500);
 
@@ -46,6 +47,7 @@ export default function MainButtonsContainer(props: any) {
 
   //Update liveScore reducer value
   useEffect(() => {
+    console.log({ liveScore });
     dispatch(updateLiveScore(liveScore));
   }, [liveScore]);
 
@@ -78,6 +80,7 @@ export default function MainButtonsContainer(props: any) {
         setLiveScore={setLiveScore}
         callback={updateScore}
         cmsScore={_cmsScore}
+        team={_userData?.team}
       />
     </CenterView>
   );

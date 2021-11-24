@@ -7,8 +7,10 @@ interface action {
   payload: any;
 }
 
+const excludeArray = ["send/liveScore/fulfilled", "score/updateLiveScore"];
+
 export const amplitudeEvent = (action: action) => {
-  if (Platform.OS !== "web") {
+  if (Platform.OS !== "web" && !excludeArray.includes(action.type)) {
     record(action);
   }
 };
@@ -22,6 +24,7 @@ async function record(action: action) {
   ) {
     await Amplitude.setUserIdAsync(action.payload.data.email);
   }
+
   await Amplitude.logEventAsync(action.type);
 }
 

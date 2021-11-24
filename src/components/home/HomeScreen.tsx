@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 import { AlignView, CenterView } from "../common/Views";
 import Button from "../common/Button";
 import MainButtonsContainer from "./mainButtons/MainButtonsContainer";
-import { useAppDispatch } from "../../hooks/hooks";
-import { update, close } from "../../redux/reducers/modalSlice";
 
 interface props {
   navigation: any;
@@ -13,11 +11,19 @@ interface props {
   liveScore: number;
   score: number;
   liveStreamScore: number;
+  liveStreamRank: number;
 }
 
 export default function HomeScreen(props: props) {
-  const { navigation, cmsData, username, liveScore, score, liveStreamScore } =
-    props;
+  const {
+    navigation,
+    cmsData,
+    username,
+    liveScore,
+    score,
+    liveStreamScore,
+    liveStreamRank,
+  } = props;
 
   return (
     <CenterView style={{ justifyContent: "space-around" }}>
@@ -46,10 +52,19 @@ export default function HomeScreen(props: props) {
       </View>
 
       <View>
-        <AlignView>
-          <Text>Live Stream Score: {liveStreamScore}</Text>
-        </AlignView>
-        <AlignView>
+        {liveScore ? (
+          <>
+            <AlignView>
+              <Text>Live Stream Score: {liveStreamScore}</Text>
+            </AlignView>
+            <AlignView>
+              <Text>Live Stream Rank: {liveStreamRank}</Text>
+            </AlignView>
+          </>
+        ) : (
+          <AlignView style={{ height: 50 }}></AlignView>
+        )}
+        <AlignView style={{ marginTop: 20 }}>
           <Text>Score: {score}</Text>
         </AlignView>
         <AlignView style={{ marginTop: 20 }}>
