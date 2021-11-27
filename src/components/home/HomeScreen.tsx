@@ -12,6 +12,7 @@ interface props {
   score: number;
   liveStreamScore: number;
   liveStreamRank: number;
+  openShop: any;
 }
 
 export default function HomeScreen(props: props) {
@@ -23,6 +24,7 @@ export default function HomeScreen(props: props) {
     score,
     liveStreamScore,
     liveStreamRank,
+    openShop,
   } = props;
 
   return (
@@ -74,12 +76,19 @@ export default function HomeScreen(props: props) {
 
       <MainButtonsContainer />
 
-      <Button
-        title="Settings"
-        isSecondary={true}
-        onPress={() => navigation.navigate("Settings")}
-        buttonStyle={{ marginTop: 20 }}
-      />
+      <AlignView>
+        <Button
+          title="Settings"
+          isSecondary={true}
+          onPress={() => navigation.navigate("Settings")}
+          buttonStyle={{ marginTop: 20 }}
+        />
+        <Button
+          title="Shop"
+          onPress={() => openShop()}
+          buttonStyle={{ marginTop: 20 }}
+        />
+      </AlignView>
     </CenterView>
   );
 }

@@ -6,6 +6,7 @@ import { getCMS, cmsData } from "./redux/reducers/cmsSlice";
 import Loading from "./components/common/Loading";
 import { registerForPushNotificationsAsync } from "./helpers/pushNotifications";
 import ModalContainer from "./containers/ModalContainer";
+import ShopContainer from "./containers/ShopContainer";
 
 export default function Index() {
   const _stateData = useAppSelector(stateData);
@@ -37,6 +38,7 @@ export default function Index() {
     <>
       <Route />
       <ModalContainer />
+      <ShopContainer />
     </>
   );
 }

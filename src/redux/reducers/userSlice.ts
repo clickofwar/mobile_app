@@ -211,7 +211,6 @@ export const userSlice = createSlice({
         state.teamError = null;
       })
       .addCase(userSetTeam.fulfilled, (state, action: any) => {
-        console.log({ action });
         state.teamIsLoading = false;
         state.teamError = null;
         state.team = action.payload?.data?.team;

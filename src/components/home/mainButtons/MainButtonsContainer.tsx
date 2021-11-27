@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CenterView } from "../../common/Views";
 import MainButtons from "./MainButtons";
 import { Text } from "react-native";
 import { useAppSelector, useAppDispatch } from "../../../hooks/hooks";
-import { cmsScore } from "../../../redux/reducers/cmsSlice";
+import { cmsScore, cmsAnimate } from "../../../redux/reducers/cmsSlice";
 import { userData } from "../../../redux/reducers/userSlice";
 
 import {
@@ -12,6 +12,7 @@ import {
   sendUpdatedScore,
   getUpdatedScore,
 } from "../../../redux/reducers/scoreSlice";
+import AnimateButton from "./AnimateButton";
 
 let liveScoreOutside = 0;
 let prevScoreOutside = 0;
@@ -20,6 +21,7 @@ export default function MainButtonsContainer(props: any) {
   const dispatch = useAppDispatch();
   const _cmsScore = useAppSelector(cmsScore);
   const _userData = useAppSelector(userData);
+  const _cmsAnimate = useAppSelector(cmsAnimate);
   const [liveScore, setLiveScore] = useState(0);
   const [submittedScore, setSubmittedScore] = useState(0);
 
@@ -47,7 +49,6 @@ export default function MainButtonsContainer(props: any) {
 
   //Update liveScore reducer value
   useEffect(() => {
-    console.log({ liveScore });
     dispatch(updateLiveScore(liveScore));
   }, [liveScore]);
 
@@ -75,13 +76,15 @@ export default function MainButtonsContainer(props: any) {
   return (
     <CenterView style={{ flex: "none" }}>
       <Text>Submit Score: {submittedScore}</Text>
-      <MainButtons
-        liveScore={liveScore}
-        setLiveScore={setLiveScore}
-        callback={updateScore}
-        cmsScore={_cmsScore}
-        team={_userData?.team}
-      />
+      <AnimateButton liveScore={liveScore} cmsAnimate={_cmsAnimate}>
+        <MainButtons
+          liveScore={liveScore}
+          setLiveScore={setLiveScore}
+          callback={updateScore}
+          cmsScore={_cmsScore}
+          team={_userData?.team}
+        />
+      </AnimateButton>
     </CenterView>
   );
 }

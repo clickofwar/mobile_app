@@ -61,4 +61,13 @@ export const cmsScore = (state: RootState) => ({
   score: state.cms.data?.score,
 });
 
+export const cmsAnimate = (state: RootState) => ({
+  animateMainButtons: state?.cms?.data?.animate?.mainButtons,
+});
+
+export const cmsShop = (state: RootState) => ({
+  shopDataPowerUps: state?.cms?.data?.shop?.powerUps,
+  shopDataStore: state?.cms?.data?.shop?.store,
+});
+
 export default cmsSlice.reducer;

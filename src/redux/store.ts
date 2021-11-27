@@ -12,6 +12,7 @@ import cmsSlice from "./reducers/cmsSlice";
 import passwordSlice from "./reducers/passwordSlice";
 import modalSlice from "./reducers/modalSlice";
 import scoreSlice from "./reducers/scoreSlice";
+import shopSlice from "./reducers/shopSlice";
 
 const reducers = combineReducers({
   user: userSlice,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   password: passwordSlice,
   modal: modalSlice,
   score: scoreSlice,
+  shop: shopSlice,
 });
 
 const persistConfig = {

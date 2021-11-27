@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
 import HomeScreen from "../components/home/HomeScreen";
-import {
-  userData,
-  logout,
-  userSetNotificationId,
-} from "../redux/reducers/userSlice";
+import { userData, userSetNotificationId } from "../redux/reducers/userSlice";
+import { open } from "../redux/reducers/shopSlice";
 import { cmsData } from "../redux/reducers/cmsSlice";
 import { scoreData } from "../redux/reducers/scoreSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import TeamContainer from "./TeamContainer";
 
 interface props {
   navigation: any;
@@ -45,6 +41,7 @@ export default function HomeContainer(props: props) {
       score={_scoreData.score || 0}
       liveStreamScore={_scoreData.liveStreamScore || 0}
       liveStreamRank={_scoreData.liveStreamRank || 0}
+      openShop={() => dispatch(open())}
     />
   );
 }
